@@ -8,9 +8,10 @@ import java.util.UUID;
 
 public interface PartnerDao {
 
-    Optional<Partner> create (Partner partner);
-    Optional<Partner> findPartnerById(UUID id);
-    List<Partner> getAllPartners();
-    boolean deletePartner();
+    Optional<Partner> create(Partner partner);
+    Optional<Partner> findById(UUID id);
+    List<Partner> getAll();
+    boolean delete();
+    Optional<Partner> update(UUID id ,Partner partner);
 
 }
