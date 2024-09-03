@@ -26,6 +26,14 @@ public class Contract {
         this.contractstatus = contractstatus;
     }
 
+    public UUID getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(UUID contractId) {
+        this.contractId = contractId;
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }
