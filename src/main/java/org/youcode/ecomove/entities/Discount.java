@@ -17,4 +17,80 @@ public class Discount {
     private String conditions;
     private OFFERSTATUS offerStatus;
 
+    public Discount() {}
+
+    public Discount(String offerName, String description, LocalDate startDate, LocalDate endDate,
+                    DISCOUNTTYPE discountType, String conditions, OFFERSTATUS offerStatus){
+        this.offerName = offerName;
+        this.description =description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.discountType = discountType;
+        this.conditions = conditions;
+        this.offerStatus = offerStatus;
+    }
+
+    public UUID getDiscountId() {
+        return discountId;
+    }
+
+    public void setDiscountId (UUID discountId){
+        this.discountId = discountId;
+    }
+
+    public String getOfferName() {
+        return offerName;
+    }
+
+    public void setOfferName(String offerName) {
+        this.offerName = offerName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public DISCOUNTTYPE getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(DISCOUNTTYPE discountType) {
+        this.discountType = discountType;
+    }
+
+    public String getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(String conditions) {
+        this.conditions = conditions;
+    }
+
+    public OFFERSTATUS getOfferStatus() {
+        return offerStatus;
+    }
+
+    public void setOfferStatus(OFFERSTATUS offerStatus) {
+        this.offerStatus = offerStatus;
+    }
 }

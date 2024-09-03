@@ -15,9 +15,9 @@ public class Ticket {
     private LocalDate resaleDate;
     private TICKETSTATUS TicketStatus;
 
-    private Ticket () {}
+    public Ticket () {}
 
-    private Ticket (TRANSPORTTYPE transportType, float purchasePrice, float resalePrice,LocalDate resaleDate,
+    public Ticket (TRANSPORTTYPE transportType, float purchasePrice, float resalePrice,LocalDate resaleDate,
                     TICKETSTATUS ticketStatus) {
         this.transportType = transportType;
         this.purchasePrice = purchasePrice;
