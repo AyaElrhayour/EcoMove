@@ -1,6 +1,8 @@
 package org.youcode.ecomove.entities;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.youcode.ecomove.enums.PARTNERSHIPSTATUS;
 import org.youcode.ecomove.enums.TRANSPORTTYPE;
@@ -14,6 +16,7 @@ public class Partner {
         private String geographicArea;
         private String specialConditions;
         private PARTNERSHIPSTATUS partnershipStatus;
+        private List<Contract> contracts;
 
         public Partner() {}
 
@@ -26,6 +29,7 @@ public class Partner {
             this.geographicArea = geographicArea;
             this.specialConditions = specialConditions;
             this.partnershipStatus = partnershipStatus;
+            this.contracts = new ArrayList<>();
         }
 
         public UUID getPartnerId() {
