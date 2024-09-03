@@ -17,8 +17,9 @@ public class Partner {
 
         public Partner() {}
 
-        public Partner(String companyName, String commercialContact, TRANSPORTTYPE transportType,
+        public Partner(UUID partnerId,String companyName, String commercialContact, TRANSPORTTYPE transportType,
                        String geographicArea, String specialConditions, PARTNERSHIPSTATUS partnershipStatus) {
+            this.partnerId = partnerId;
             this.companyName = companyName;
             this.commercialContact = commercialContact;
             this.transportType = transportType;

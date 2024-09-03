@@ -17,8 +17,9 @@ public class Ticket {
 
     public Ticket () {}
 
-    public Ticket (TRANSPORTTYPE transportType, float purchasePrice, float resalePrice,LocalDate resaleDate,
+    public Ticket (UUID ticketId,TRANSPORTTYPE transportType, float purchasePrice, float resalePrice,LocalDate resaleDate,
                     TICKETSTATUS ticketStatus) {
+        this.ticketId = ticketId;
         this.transportType = transportType;
         this.purchasePrice = purchasePrice;
         this.resalePrice =resalePrice;

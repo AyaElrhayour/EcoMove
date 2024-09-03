@@ -19,7 +19,7 @@ public class Discount {
 
     public Discount() {}
 
-    public Discount(String offerName, String description, LocalDate startDate, LocalDate endDate,
+    public Discount(UUID discountId,String offerName, String description, LocalDate startDate, LocalDate endDate,
                     DISCOUNTTYPE discountType, String conditions, OFFERSTATUS offerStatus){
         this.offerName = offerName;
         this.description =description;

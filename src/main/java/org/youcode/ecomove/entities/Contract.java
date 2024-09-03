@@ -16,7 +16,7 @@ public class Contract {
 
     public Contract() {}
 
-    public Contract (LocalDate startDate, LocalDate endDate, int specialPrice, String agreementConditions,
+    public Contract (UUID contractId,LocalDate startDate, LocalDate endDate, int specialPrice, String agreementConditions,
                      boolean renewable, CONTRACTSTATUS contractstatus ){
         this.startDate = startDate;
         this.endDate = endDate;
