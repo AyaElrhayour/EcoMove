@@ -29,7 +29,6 @@ public class Partner {
             this.geographicArea = geographicArea;
             this.specialConditions = specialConditions;
             this.partnershipStatus = partnershipStatus;
-            this.contracts = new ArrayList<>();
         }
 
         public UUID getPartnerId() {

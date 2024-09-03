@@ -1,6 +1,8 @@
 package org.youcode.ecomove.entities;
 
 import org.youcode.ecomove.enums.CONTRACTSTATUS;
+
+import java.util.List;
 import java.util.UUID;
 import java.time.LocalDate;
 
@@ -13,6 +15,8 @@ public class Contract {
     private String agreementConditions;
     private boolean renewable;
     private CONTRACTSTATUS contractstatus;
+    private List<Ticket> tickets;
+    private List<Discount> discounts;
 
     public Contract() {}
 
