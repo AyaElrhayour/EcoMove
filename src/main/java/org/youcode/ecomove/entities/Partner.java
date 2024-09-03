@@ -35,7 +35,7 @@ public class Partner {
             return partnerId;
         }
 
-        public void setPartnerId(UUID partnerId) {
+        public  void setPartnerId(UUID partnerId) {
             this.partnerId = partnerId;
         }
 
