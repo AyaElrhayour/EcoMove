@@ -86,5 +86,13 @@ public class Partner {
         public void setPartnershipStatus(PARTNERSHIPSTATUS partnershipStatus) {
             this.partnershipStatus = partnershipStatus;
         }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
+    }
 }
 

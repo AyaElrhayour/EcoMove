@@ -15,6 +15,7 @@ public class Contract {
     private String agreementConditions;
     private boolean renewable;
     private CONTRACTSTATUS contractstatus;
+    private Partner partner;
     private List<Ticket> tickets;
     private List<Discount> discounts;
 
@@ -22,6 +23,7 @@ public class Contract {
 
     public Contract (UUID contractId,LocalDate startDate, LocalDate endDate, int specialPrice, String agreementConditions,
                      boolean renewable, CONTRACTSTATUS contractstatus ){
+        this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.specialPrice = specialPrice;
@@ -83,7 +85,31 @@ public class Contract {
         return contractstatus;
     }
 
-    public void setContractstatus(CONTRACTSTATUS contractstatus) {
+    public void setContractStatus(CONTRACTSTATUS contractstatus) {
         this.contractstatus = contractstatus;
+    }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public List<Discount> getDiscounts(){
+        return discounts;
+    }
+
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
     }
 }

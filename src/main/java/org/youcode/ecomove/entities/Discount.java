@@ -16,11 +16,13 @@ public class Discount {
     private DISCOUNTTYPE discountType;
     private String conditions;
     private OFFERSTATUS offerStatus;
+    private Contract contract;
 
     public Discount() {}
 
     public Discount(UUID discountId,String offerName, String description, LocalDate startDate, LocalDate endDate,
                     DISCOUNTTYPE discountType, String conditions, OFFERSTATUS offerStatus){
+        this.discountId = discountId;
         this.offerName = offerName;
         this.description =description;
         this.startDate = startDate;
@@ -92,5 +94,13 @@ public class Discount {
 
     public void setOfferStatus(OFFERSTATUS offerStatus) {
         this.offerStatus = offerStatus;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 }

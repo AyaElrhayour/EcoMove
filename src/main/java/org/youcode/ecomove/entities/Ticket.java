@@ -14,6 +14,7 @@ public class Ticket {
     private float resalePrice;
     private LocalDate resaleDate;
     private TICKETSTATUS TicketStatus;
+    private Contract contract;
 
     public Ticket () {}
 
@@ -73,5 +74,13 @@ public class Ticket {
 
     public void setTicketStatus(TICKETSTATUS ticketStatus) {
         TicketStatus = ticketStatus;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 }
