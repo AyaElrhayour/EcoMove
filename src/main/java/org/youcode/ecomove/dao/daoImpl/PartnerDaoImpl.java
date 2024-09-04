@@ -6,10 +6,8 @@ import org.youcode.ecomove.entities.Partner;
 import org.youcode.ecomove.enums.PARTNERSHIPSTATUS;
 import org.youcode.ecomove.enums.TRANSPORTTYPE;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,7 +28,7 @@ public class PartnerDaoImpl implements PartnerDao {
                 "comercialContact, transportType, geographicArea, specialConditions, partnershipStatus) " +
                 "VALUES ( ?, ?, ?, ?::transportType, ?, ?, ?::partnershipStatus)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(insertSQL)){
-                preparedStatement.setString(1,String.valueOf(partner.getPartnerId()));
+                preparedStatement.setObject(1,partner.getPartnerId());
                 preparedStatement.setString(2,partner.getCompanyName());
                 preparedStatement.setString(3,partner.getCommercialContact());
                 preparedStatement.setString(4,partner.getTransportType().toString());
@@ -53,7 +51,8 @@ public class PartnerDaoImpl implements PartnerDao {
         String selectSQL = "SELECT * FROM partner WHERE partnerId = ?";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(selectSQL)){
-            preparedStatement.setString(1,String.valueOf(id));
+            preparedStatement.setObject(1,id);
+
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 if (resultSet.next()){
                     Partner partner = new Partner();
@@ -78,16 +77,70 @@ public class PartnerDaoImpl implements PartnerDao {
 
     @Override
     public List<Partner> getAll() {
+        List<Partner> partners = new ArrayList<>();
+        String selectAllSQL = "SELECT * FROM Partner";
+        try (Statement statement = conn.createStatement();
+             ResultSet resultSet = statement.executeQuery(selectAllSQL)) {
+            while (resultSet.next()){
+                Partner partner = new Partner();
+                partner.setPartnerId(UUID.fromString(resultSet.getString("partnerId")));
+                partner.setCompanyName(resultSet.getString("companyName"));
+                partner.setCommercialContact(resultSet.getString("comercialContract"));
+                partner.setTransportType(TRANSPORTTYPE.valueOf(resultSet.getString("transportType")));
+                partner.setGeographicArea(resultSet.getString("geographicArea"));
+                partner.setSpecialConditions(resultSet.getString("specialConditions"));
+                partner.setPartnershipStatus(PARTNERSHIPSTATUS.valueOf(resultSet.getString("partnershipStatus")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return List.of();
     }
 
     @Override
-    public boolean delete() {
-        return false;
+    public boolean delete(UUID partnerId) {
+        String deleteSQL = "DELETE FROM partner WHERE partnerId = ?";
+
+        try (PreparedStatement preparedStatement =conn.prepareStatement(deleteSQL)){
+
+            preparedStatement.setString(1, String.valueOf(partnerId));
+
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Optional<Partner> update(UUID id, Partner partner) {
-        return Optional.empty();
+
+        String updateSQL = "UPDATE partner SET companyName = ?, commercialContact = ?," +
+                "transportType = ? ,  geographicArea = ? , specialConditions = ?, " +
+                "partnershipStatus = ? WHERE partnerId = ?";
+
+        try(PreparedStatement preparedStatement = conn.prepareStatement(updateSQL)){
+            preparedStatement.setString(1, partner.getCompanyName());
+            preparedStatement.setString(2, partner.getCommercialContact());
+            preparedStatement.setString(3, partner.getTransportType().toString());
+            preparedStatement.setString(4, partner.getGeographicArea());
+            preparedStatement.setString(5, partner.getSpecialConditions());
+            preparedStatement.setString(6, partner.getPartnershipStatus().toString());
+            preparedStatement.setObject(7, id);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0){
+                return Optional.empty();
+            }
+
+            return Optional.of(partner);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+
     }
 }

@@ -32,7 +32,7 @@ public class PartnerView {
         System.out.println("Enter Special Conditions:");
         String specialConditions = sc.nextLine();
 
-        System.out.println("Enter Partnership Status (e.g., ACTIVE, INACTIVE, etc.):");
+        System.out.println("Enter Partnership Status (ACTIVE, INACTIVE, SUSPENDED):");
         String partnershipStatus = sc.nextLine();
 
         Partner partner = new Partner(UUID.randomUUID(),companyName, commercialContact,
