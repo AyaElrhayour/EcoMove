@@ -64,7 +64,9 @@ public class PartnerDaoImpl implements PartnerDao {
                     partner.setGeographicArea(resultSet.getString("geographicArea"));
                     partner.setSpecialConditions(resultSet.getString("specialConditions"));
                     partner.setPartnershipStatus(PARTNERSHIPSTATUS.valueOf(resultSet.getString("partnershipStatus")));
+                    //partner.setContracts(List<Contract> contracts);
 
+                    return Optional.of(partner);
                 }
             }
 
