@@ -85,7 +85,7 @@ public class PartnerDaoImpl implements PartnerDao {
                 Partner partner = new Partner();
                 partner.setPartnerId(UUID.fromString(resultSet.getString("partnerId")));
                 partner.setCompanyName(resultSet.getString("companyName"));
-                partner.setCommercialContact(resultSet.getString("comercialContract"));
+                partner.setCommercialContact(resultSet.getString("commercialContact"));
                 partner.setTransportType(TRANSPORTTYPE.valueOf(resultSet.getString("transportType")));
                 partner.setGeographicArea(resultSet.getString("geographicArea"));
                 partner.setSpecialConditions(resultSet.getString("specialConditions"));

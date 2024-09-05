@@ -24,10 +24,10 @@ public class PartnerMenu {
             System.out.println("|                             |");
             System.out.println("|      Partner Management     |");
             System.out.println("|  1 : Add Partner            |");
-            System.out.println("|  2 : Modifier Partner       |");
+            System.out.println("|  2 : List All Partner       |");
             System.out.println("|  3 : Remove Partner         |");
             System.out.println("|  4 : Find a Partner         |");
-            System.out.println("|  5 : List All Partner       |");
+            System.out.println("|  5 : Modifier Partner       |");
             System.out.println("|  6 : Return                 |");
             System.out.println("|                             |");
             System.out.println(" -----------------------------");
@@ -39,6 +39,8 @@ public class PartnerMenu {
                 case 1:
                     partnerView.createPartner();
                     break;
+                case 2:
+                    partnerView.getAllPartners();
 
                 case 6:
                     return;
