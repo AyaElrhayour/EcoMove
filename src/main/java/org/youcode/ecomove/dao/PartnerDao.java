@@ -12,6 +12,6 @@ public interface PartnerDao {
     Optional<Partner> findById(UUID partnerId);
     List<Partner> getAll();
     boolean delete(UUID partnerId);
-    Optional<Partner> update(UUID id ,Partner partner);
+    Optional<Partner> update(UUID partnerId ,Partner partner);
 
 }

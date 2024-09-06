@@ -25,7 +25,7 @@ public class PartnerDaoImpl implements PartnerDao {
     @Override
     public Optional<Partner> create(Partner partner) {
         String insertSQL = " INSERT INTO partner (partnerId, companyName, " +
-                "comercialContact, transportType, geographicArea, specialConditions, partnershipStatus) " +
+                "commercialContact, transportType, geographicArea, specialConditions, partnershipStatus) " +
                 "VALUES ( ?, ?, ?, ?::transportType, ?, ?, ?::partnershipStatus)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(insertSQL)){
                 preparedStatement.setObject(1,partner.getPartnerId());
@@ -48,7 +48,7 @@ public class PartnerDaoImpl implements PartnerDao {
 
     @Override
     public Optional<Partner> findById(UUID id) {
-        String selectSQL = "SELECT * FROM partner WHERE partnerId = ?";
+        String selectSQL = "SELECT * FROM partner WHERE partnerId = ?::uuid";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(selectSQL)){
             preparedStatement.setObject(1,id);
@@ -58,7 +58,7 @@ public class PartnerDaoImpl implements PartnerDao {
                     Partner partner = new Partner();
                     partner.setPartnerId(UUID.fromString(resultSet.getString("partnerId")));
                     partner.setCompanyName(resultSet.getString("companyName"));
-                    partner.setCommercialContact(resultSet.getString("commercialContract"));
+                    partner.setCommercialContact(resultSet.getString("commercialContact"));
                     partner.setTransportType(TRANSPORTTYPE.valueOf(resultSet.getString("transportType")));
                     partner.setGeographicArea(resultSet.getString("geographicArea"));
                     partner.setSpecialConditions(resultSet.getString("specialConditions"));
@@ -78,7 +78,9 @@ public class PartnerDaoImpl implements PartnerDao {
     @Override
     public List<Partner> getAll() {
         List<Partner> partners = new ArrayList<>();
-        String selectAllSQL = "SELECT * FROM Partner";
+
+        String selectAllSQL = "SELECT * FROM partner";
+
         try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery(selectAllSQL)) {
             while (resultSet.next()){
@@ -90,20 +92,21 @@ public class PartnerDaoImpl implements PartnerDao {
                 partner.setGeographicArea(resultSet.getString("geographicArea"));
                 partner.setSpecialConditions(resultSet.getString("specialConditions"));
                 partner.setPartnershipStatus(PARTNERSHIPSTATUS.valueOf(resultSet.getString("partnershipStatus")));
+                partners.add(partner);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return List.of();
+        return partners;
     }
 
     @Override
     public boolean delete(UUID partnerId) {
-        String deleteSQL = "DELETE FROM partner WHERE partnerId = ?";
+        String deleteSQL = "DELETE FROM partner WHERE partnerId = ?::uuid";
 
         try (PreparedStatement preparedStatement =conn.prepareStatement(deleteSQL)){
 
-            preparedStatement.setString(1, String.valueOf(partnerId));
+            preparedStatement.setObject(1, String.valueOf(partnerId));
 
             int affectedRows = preparedStatement.executeUpdate();
             return affectedRows > 0;
@@ -114,11 +117,11 @@ public class PartnerDaoImpl implements PartnerDao {
     }
 
     @Override
-    public Optional<Partner> update(UUID id, Partner partner) {
+    public Optional<Partner> update(UUID partnerId, Partner partner) {
 
         String updateSQL = "UPDATE partner SET companyName = ?, commercialContact = ?," +
-                "transportType = ? ,  geographicArea = ? , specialConditions = ?, " +
-                "partnershipStatus = ? WHERE partnerId = ?";
+                "transportType = ?::transportType ,  geographicArea = ? , specialConditions = ?, " +
+                "partnershipStatus = ?::partnershipStatus WHERE partnerId = ?::uuid";
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(updateSQL)){
             preparedStatement.setString(1, partner.getCompanyName());
@@ -127,7 +130,7 @@ public class PartnerDaoImpl implements PartnerDao {
             preparedStatement.setString(4, partner.getGeographicArea());
             preparedStatement.setString(5, partner.getSpecialConditions());
             preparedStatement.setString(6, partner.getPartnershipStatus().toString());
-            preparedStatement.setObject(7, id);
+            preparedStatement.setObject(7, partnerId);
 
             int affectedRows = preparedStatement.executeUpdate();
 
