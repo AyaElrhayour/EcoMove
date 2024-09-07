@@ -87,12 +87,12 @@ public class Partner {
             this.partnershipStatus = partnershipStatus;
         }
 
-    public List<Contract> getContracts() {
-        return contracts;
-    }
+        public List<Contract> getContracts() {
+            return contracts;
+        }
 
-    public void setContracts(List<Contract> contracts) {
-        this.contracts = contracts;
-    }
+        public void setContracts(List<Contract> contracts) {
+            this.contracts = contracts;
+        }
 }
 

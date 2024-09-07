@@ -50,10 +50,12 @@ public class PartnerDaoImpl implements PartnerDao {
     public Optional<Partner> findById(UUID id) {
         String selectSQL = "SELECT * FROM partner WHERE partnerId = ?::uuid";
 
+
         try(PreparedStatement preparedStatement = conn.prepareStatement(selectSQL)){
             preparedStatement.setObject(1,id);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()){
+
                 if (resultSet.next()){
                     Partner partner = new Partner();
                     partner.setPartnerId(UUID.fromString(resultSet.getString("partnerId")));

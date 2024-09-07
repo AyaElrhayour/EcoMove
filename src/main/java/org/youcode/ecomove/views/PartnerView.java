@@ -12,73 +12,45 @@ import java.util.UUID;
 
 public class PartnerView {
     private final PartnerService partnerService;
+    private final Scanner sc;
 
-    public PartnerView (PartnerService partnerService){
+    public PartnerView(PartnerService partnerService) {
         this.partnerService = partnerService;
+        this.sc = new Scanner(System.in);
     }
+
     public void createPartner() {
-        Scanner sc = new Scanner(System.in);
+        try {
+            String companyName = getValidInput("Enter Company Name:", "Company name");
+            String commercialContact = getValidInput("Enter Commercial Contact:", "Commercial contact");
+            TRANSPORTTYPE transportType = getValidTransportType();
+            String geographicArea = getValidInput("Enter Geographic Area:", "Geographic area");
+            String specialConditions = getValidInput("Enter Special Conditions:", "Special conditions");
+            PARTNERSHIPSTATUS partnershipStatus = getValidPartnershipStatus();
 
-        System.out.println("Enter Company Name:");
-        String companyName = sc.nextLine();
+            Partner partner = new Partner(
+                    UUID.randomUUID(),
+                    companyName,
+                    commercialContact,
+                    transportType,
+                    geographicArea,
+                    specialConditions,
+                    partnershipStatus
+            );
 
-        System.out.println("Enter Commercial Contact:");
-        String commercialContact = sc.nextLine();
-
-
-        String transportType = "";
-        boolean validTransportType = false;
-        while (!validTransportType) {
-            System.out.println("Enter Transport Type (BUS, TRAIN, PLANE):");
-            transportType = sc.nextLine();
-            try {
-                TRANSPORTTYPE.valueOf(transportType.toUpperCase());
-                validTransportType = true; // Exit loop when valid
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: Invalid transport type. Valid values are BUS, TRAIN, PLANE.");
-            }
+            partnerService.createPartner(partner);
+            System.out.println("Partner created successfully!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
         }
-
-        System.out.println("Enter Geographic Area:");
-        String geographicArea = sc.nextLine();
-
-        System.out.println("Enter Special Conditions:");
-        String specialConditions = sc.nextLine();
-
-        String partnershipStatus = "";
-        boolean validPartnershipStatus = false;
-        while (!validPartnershipStatus) {
-            System.out.println("Enter Partnership Status (ACTIVE, INACTIVE, SUSPENDED):");
-            partnershipStatus = sc.nextLine();
-            try {
-                PARTNERSHIPSTATUS.valueOf(partnershipStatus.toUpperCase());
-                validPartnershipStatus = true; // Exit loop when valid
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: Invalid partnership status. Valid values are ACTIVE, INACTIVE, SUSPENDED.");
-            }
-        }
-
-        Partner partner = new Partner(
-                UUID.randomUUID(),
-                companyName,
-                commercialContact,
-                TRANSPORTTYPE.valueOf(transportType.toUpperCase()),
-                geographicArea,
-                specialConditions,
-                PARTNERSHIPSTATUS.valueOf(partnershipStatus.toUpperCase())
-        );
-
-        partnerService.createPartner(partner);
-        System.out.println("Partner created successfully!");
     }
 
-
-    public void getAllPartners(){
+    public void getAllPartners() {
         List<Partner> partners = partnerService.getAllPartners();
 
-        if (partners.isEmpty()){
+        if (partners.isEmpty()) {
             System.out.println("No Partners in the database so far!");
-        }else {
+        } else {
             System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
             System.out.println("║                                                                                 Partners List                                                                           ║");
             System.out.println("╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣");
@@ -100,8 +72,6 @@ public class PartnerView {
     }
 
     public void deletePartnerById() {
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("Enter Partner's ID You Want To Delete : ");
         String partnerId = sc.nextLine();
 
@@ -117,91 +87,46 @@ public class PartnerView {
     }
 
     public void updatePartner() {
-        Scanner sc = new Scanner(System.in);
-
-
-        System.out.println("Enter The Id Of The Partner You Wish To Update: ");
-        String userInput = sc.nextLine();
-
-
         try {
-            if (!PartnerValidation.isValidUUID(userInput)) {
-                throw new IllegalArgumentException("Invalid UUID format");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-            return;
-        }
 
 
-        System.out.println("Enter Company Name:");
-        String companyName = sc.nextLine();
+            String partnerId = getValidInput("Enter The Id Of The Partner You Wish To Update:", "Partner ID");
+            if (partnerService.findPartnerByID(String.valueOf(UUID.fromString(partnerId))) == null)
+                throw new IllegalArgumentException("Partner not found");
 
-        System.out.println("Enter Commercial Contact:");
-        String commercialContact = sc.nextLine();
+            String companyName = getValidInput("Enter Company Name:", "Company name");
+            String commercialContact = getValidInput("Enter Commercial Contact:", "Commercial contact");
+            TRANSPORTTYPE transportType = getValidTransportType();
+            String geographicArea = getValidInput("Enter Geographic Area:", "Geographic area");
+            String specialConditions = getValidInput("Enter Special Conditions:", "Special conditions");
+            PARTNERSHIPSTATUS partnershipStatus = getValidPartnershipStatus();
 
-
-        String transportType = "";
-        boolean validTransportType = false;
-        while (!validTransportType) {
-            System.out.println("Enter Transport Type (BUS, TRAIN, PLANE):");
-            transportType = sc.nextLine();
-            try {
-                TRANSPORTTYPE.valueOf(transportType.toUpperCase());
-                validTransportType = true; // Exit loop when valid
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: Invalid transport type. Valid values are BUS, TRAIN, PLANE.");
-            }
-        }
-
-        System.out.println("Enter Geographic Area:");
-        String geographicArea = sc.nextLine();
-
-        System.out.println("Enter Special Conditions:");
-        String specialConditions = sc.nextLine();
-
-
-        String partnershipStatus = "";
-        boolean validPartnershipStatus = false;
-        while (!validPartnershipStatus) {
-            System.out.println("Enter Partnership Status (ACTIVE, INACTIVE, SUSPENDED):");
-            partnershipStatus = sc.nextLine();
-            try {
-                PARTNERSHIPSTATUS.valueOf(partnershipStatus.toUpperCase());
-                validPartnershipStatus = true; // Exit loop when valid
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: Invalid partnership status. Valid values are ACTIVE, INACTIVE, SUSPENDED.");
-            }
-        }
-
-        try {
             Partner partner = new Partner(
-                    UUID.fromString(userInput),
+                    UUID.fromString(partnerId),
                     companyName,
                     commercialContact,
-                    TRANSPORTTYPE.valueOf(transportType.toUpperCase()),
+                    transportType,
                     geographicArea,
                     specialConditions,
-                    PARTNERSHIPSTATUS.valueOf(partnershipStatus.toUpperCase())
+                    partnershipStatus
             );
 
-            Partner updatedPartner = partnerService.updatePartner(userInput, partner);
+            Partner updatedPartner = partnerService.updatePartner(partnerId, partner);
 
             if (updatedPartner != null) {
                 System.out.println("Partner Updated successfully!");
             } else {
-                System.out.println("Partner with ID: " + userInput + " Not found");
+                System.out.println("Partner with ID: " + partnerId + " Not found");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Error: Invalid ID");
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
-
     public void findPartnerById() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Enter Partner ID:");
         String userInput = sc.nextLine();
+        System.out.println(userInput);
         Partner partner = partnerService.findPartnerByID(userInput);
 
         if (partner != null) {
@@ -225,5 +150,30 @@ public class PartnerView {
         }
     }
 
+    private String getValidInput(String prompt, String fieldName) {
+        System.out.println(prompt);
+        String input = sc.nextLine();
+        PartnerValidation.validateNotEmpty(input, fieldName);
+        return input;
+    }
 
+    private TRANSPORTTYPE getValidTransportType() {
+        while (true) {
+            try {
+                return PartnerValidation.validateTransportType(getValidInput("Enter Transport Type (BUS, TRAIN, PLANE):", "Transport type"));
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private PARTNERSHIPSTATUS getValidPartnershipStatus() {
+        while (true) {
+            try {
+                return PartnerValidation.validatePartnershipStatus(getValidInput("Enter Partnership Status (ACTIVE, INACTIVE, SUSPENDED):", "Partnership status"));
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }

@@ -22,7 +22,7 @@ public class Contract {
     public Contract() {}
 
     public Contract (UUID contractId,LocalDate startDate, LocalDate endDate, int specialPrice, String agreementConditions,
-                     boolean renewable, CONTRACTSTATUS contractstatus ){
+                     boolean renewable, CONTRACTSTATUS contractstatus, Partner partner ){
         this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -30,6 +30,7 @@ public class Contract {
         this.agreementConditions = agreementConditions;
         this.renewable = renewable;
         this.contractstatus = contractstatus;
+        this.partner = partner;
     }
 
     public UUID getContractId() {
@@ -73,7 +74,7 @@ public class Contract {
         this.agreementConditions = agreementConditions;
     }
 
-    public boolean isRenewable() {
+    public boolean getRenewable() {
         return renewable;
     }
 
@@ -81,7 +82,7 @@ public class Contract {
         this.renewable = renewable;
     }
 
-    public CONTRACTSTATUS getContractstatus() {
+    public CONTRACTSTATUS getContractStatus() {
         return contractstatus;
     }
 

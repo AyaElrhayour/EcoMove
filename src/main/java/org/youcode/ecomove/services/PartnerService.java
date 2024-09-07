@@ -6,7 +6,6 @@ import org.youcode.ecomove.utils.PartnerValidation;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.UUID;
 
 public class PartnerService {
@@ -35,7 +34,7 @@ public class PartnerService {
 
     public boolean deletePartnerById(String partnerIdInput) {
 
-        if (!PartnerValidation.isValidUUID(partnerIdInput)) {
+        if (!PartnerValidation.isUUIDValid(partnerIdInput)) {
             throw new IllegalArgumentException("Invalid UUID format");
         }
 
@@ -51,10 +50,9 @@ public class PartnerService {
 
     public Partner updatePartner(String partnerIdInput, Partner partner) {
 
-        if (!PartnerValidation.isValidUUID(partnerIdInput)) {
+        if (!PartnerValidation.isUUIDValid(partnerIdInput)) {
             throw new IllegalArgumentException("Invalid UUID format");
         }
-
 
         UUID partnerId = UUID.fromString(partnerIdInput);
         Optional<Partner> retrievedPartner = partnerDao.findById(partnerId);
@@ -67,16 +65,13 @@ public class PartnerService {
     }
 
     public Partner findPartnerByID(String partnerIdInput){
-        if (!PartnerValidation.isValidUUID(partnerIdInput)) {
+        if (!PartnerValidation.isUUIDValid(partnerIdInput)) {
             System.out.println("Invalid UUID format. Please enter a valid UUID.");
             return null;
         }
-
         UUID partnerId = UUID.fromString(partnerIdInput);
         Optional<Partner> retrievedPartner = partnerDao.findById(partnerId);
         return retrievedPartner.orElse(null);
     }
-
-
 
 }

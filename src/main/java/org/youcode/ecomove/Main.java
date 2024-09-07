@@ -1,6 +1,7 @@
 package org.youcode.ecomove;
 
 import org.youcode.ecomove.db.DBConnection;
+import org.youcode.ecomove.submenu.ContractMenu;
 import org.youcode.ecomove.submenu.PartnerMenu;
 
 import java.util.Scanner;
@@ -18,8 +19,7 @@ public class Main {
                     PartnerMenu.partnerManagementMenu();
                     break;
                 case 2:
-                    // TODO: Implement Contrats management
-                    System.out.println("Contrats management not implemented yet.");
+                    ContractMenu.contractManagementMenu();
                     break;
                 case 3:
                     // TODO: Implement Offres management
