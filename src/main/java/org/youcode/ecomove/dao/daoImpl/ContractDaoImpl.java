@@ -138,7 +138,6 @@ public class ContractDaoImpl implements ContractDao {
         contract.setRenewable(resultSet.getBoolean("renewable"));
         contract.setContractStatus(CONTRACTSTATUS.valueOf(resultSet.getString("contractStatus")));
         contract.setPartner(new PartnerDaoImpl().findById(UUID.fromString(resultSet.getString("partnerId"))).get());
-        // TODO: Fetch associated Partner from PartnerDao and set it to contract.setPartner()
         return contract;
     }
 }

@@ -2,6 +2,7 @@ package org.youcode.ecomove;
 
 import org.youcode.ecomove.db.DBConnection;
 import org.youcode.ecomove.submenu.ContractMenu;
+import org.youcode.ecomove.submenu.DiscountMenu;
 import org.youcode.ecomove.submenu.PartnerMenu;
 
 import java.util.Scanner;
@@ -22,11 +23,10 @@ public class Main {
                     ContractMenu.contractManagementMenu();
                     break;
                 case 3:
-                    // TODO: Implement Offres management
-                    System.out.println("Offres management not implemented yet.");
+                    DiscountMenu.discountManagementMenu();
                     break;
                 case 4:
-                    // TODO: Implement Billets management
+
                     System.out.println("Billets management not implemented yet.");
                     break;
                 case 5:

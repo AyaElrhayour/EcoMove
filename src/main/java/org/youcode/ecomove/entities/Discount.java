@@ -21,7 +21,7 @@ public class Discount {
     public Discount() {}
 
     public Discount(UUID discountId,String offerName, String description, LocalDate startDate, LocalDate endDate,
-                    DISCOUNTTYPE discountType, String conditions, OFFERSTATUS offerStatus){
+                    DISCOUNTTYPE discountType, String conditions, OFFERSTATUS offerStatus, Contract contract){
         this.discountId = discountId;
         this.offerName = offerName;
         this.description =description;
@@ -30,6 +30,7 @@ public class Discount {
         this.discountType = discountType;
         this.conditions = conditions;
         this.offerStatus = offerStatus;
+        this.contract = contract;
     }
 
     public UUID getDiscountId() {
