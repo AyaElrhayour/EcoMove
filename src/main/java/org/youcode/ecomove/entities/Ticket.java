@@ -10,22 +10,23 @@ public class Ticket {
 
     private UUID ticketId;
     private TRANSPORTTYPE transportType;
-    private float purchasePrice;
-    private float resalePrice;
+    private double purchasePrice;
+    private double resalePrice;
     private LocalDate resaleDate;
     private TICKETSTATUS TicketStatus;
     private Contract contract;
 
     public Ticket () {}
 
-    public Ticket (UUID ticketId,TRANSPORTTYPE transportType, float purchasePrice, float resalePrice,LocalDate resaleDate,
-                    TICKETSTATUS ticketStatus) {
+    public Ticket (UUID ticketId,TRANSPORTTYPE transportType, double purchasePrice, double resalePrice,LocalDate resaleDate,
+                    TICKETSTATUS ticketStatus, Contract contract) {
         this.ticketId = ticketId;
         this.transportType = transportType;
         this.purchasePrice = purchasePrice;
         this.resalePrice =resalePrice;
         this.resaleDate = resaleDate;
         this.TicketStatus =ticketStatus;
+        this.contract = contract;
     }
 
     public UUID getTicketId() {
@@ -44,7 +45,7 @@ public class Ticket {
         this.transportType = transportType;
     }
 
-    public float getPurchasePrice() {
+    public double getPurchasePrice() {
         return purchasePrice;
     }
 
@@ -52,7 +53,7 @@ public class Ticket {
         this.purchasePrice = purchasePrice;
     }
 
-    public float getResalePrice() {
+    public double getResalePrice() {
         return resalePrice;
     }
 

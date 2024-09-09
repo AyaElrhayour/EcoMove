@@ -4,6 +4,7 @@ import org.youcode.ecomove.db.DBConnection;
 import org.youcode.ecomove.submenu.ContractMenu;
 import org.youcode.ecomove.submenu.DiscountMenu;
 import org.youcode.ecomove.submenu.PartnerMenu;
+import org.youcode.ecomove.submenu.TicketMenu;
 
 import java.util.Scanner;
 
@@ -26,8 +27,7 @@ public class Main {
                     DiscountMenu.discountManagementMenu();
                     break;
                 case 4:
-
-                    System.out.println("Billets management not implemented yet.");
+                    TicketMenu.ticketManagementMenu();
                     break;
                 case 5:
                     System.out.println("Thank you for your hard work! Have a good day!");
@@ -47,11 +47,12 @@ public class Main {
         System.out.println("║           EcoMove           ║");
         System.out.println("║  1 : Partner Management     ║");
         System.out.println("║  2 : Contract Management    ║");
-        System.out.println("║  3 : Offer Management       ║");
+        System.out.println("║  3 : Discount Management    ║");
         System.out.println("║  4 : Ticket Management      ║");
         System.out.println("║  5 : EXIT                   ║");
         System.out.println("║                             ║");
         System.out.println("╚═════════════════════════════╝");
+
     }
 
     private static int getValidChoice(Scanner scanner) {

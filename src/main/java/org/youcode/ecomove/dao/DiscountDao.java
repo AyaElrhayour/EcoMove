@@ -10,7 +10,7 @@ public interface DiscountDao {
     Optional<Discount> create(Discount discount);
     Optional<Discount> findById(UUID discountId);
     List<Discount> getAll();
-    List<Discount> getDiscountsByContractId(UUID contractId);  // Method to get all discounts for a specific contract
+    List<Discount> getDiscountsByContractId(UUID contractId);
     boolean delete(UUID discountId);
     Optional<Discount> update(UUID discountId, Discount discount);
 }
